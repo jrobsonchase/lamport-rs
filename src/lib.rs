@@ -16,11 +16,11 @@ impl Clock {
         self.counter.load(Ordering::SeqCst)
     }
 
-    pub fn increment(&mut self) -> Time {
+    pub fn increment(&self) -> Time {
         self.counter.fetch_add(1, Ordering::SeqCst)+1
     }
 
-    pub fn witness(&mut self, other: Time) {
+    pub fn witness(&self, other: Time) {
         loop {
             let cur = self.counter.load(Ordering::SeqCst);
             if other < cur {
@@ -49,7 +49,7 @@ impl Iterator for Clock {
 
 #[test]
 fn increment_test() {
-    let mut clk: Clock = 0.into();
+    let clk: Clock = 0.into();
     assert!(clk.time() == 0);
     assert!(clk.increment() == 1);
 }
@@ -62,10 +62,9 @@ fn iter_test() {
     assert!(clk.next().unwrap() == 3);
 }
 
-
 #[test]
 fn witness_test() {
-    let mut clk: Clock = 0.into();
+    let clk: Clock = 0.into();
     let t2: Time = 5;
     clk.witness(t2);
     assert!(clk.time() == 6);
