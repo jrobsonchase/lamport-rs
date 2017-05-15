@@ -1,4 +1,6 @@
 [package]
 name = "lamport"
 version = "0.2.0"
-authors = ["Josh Chase <jcjoshuachase@gmail.com>"]
+authors = ["Josh Chase <josh@jec.pw>"]
+license = "MIT OR Apache-2.0"
+description = "Lamport clock implementation for distributed systems"
